@@ -1,8 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import type { RootState } from './store/store'
+import { adicionarAoCarrinho } from './store/cartSlice'
+import { useGetProdutosQuery } from './store/apiSlice'
+
 import Header from './components/Header'
 import Produtos from './containers/Produtos'
-
 import { GlobalStyle } from './styles'
+import { useState } from 'react'
 
 export type Produto = {
   id: number
@@ -12,22 +16,17 @@ export type Produto = {
 }
 
 function App() {
-  const [produtos, setProdutos] = useState<Produto[]>([])
-  const [carrinho, setCarrinho] = useState<Produto[]>([])
+  // Buscando produtos com RTK Query
+  const { data: produtos = [], isLoading, isError } = useGetProdutosQuery()
+
   const [favoritos, setFavoritos] = useState<Produto[]>([])
 
-  useEffect(() => {
-    fetch('https://fake-api-tau.vercel.app/api/ebac_sports')
-      .then((res) => res.json())
-      .then((res) => setProdutos(res))
-  }, [])
+  // Acessando o carrinho no Redux
+  const carrinho = useSelector((state: RootState) => state.carrinho.itens)
+  const dispatch = useDispatch()
 
-  function adicionarAoCarrinho(produto: Produto) {
-    if (carrinho.find((p) => p.id === produto.id)) {
-      alert('Item já adicionado')
-    } else {
-      setCarrinho([...carrinho, produto])
-    }
+  function adicionarProdutoNoCarrinho(produto: Produto) {
+    dispatch(adicionarAoCarrinho(produto))
   }
 
   function favoritar(produto: Produto) {
@@ -39,6 +38,9 @@ function App() {
     }
   }
 
+  if (isLoading) return <p>Carregando produtos...</p>
+  if (isError) return <p>Erro ao carregar os produtos.</p>
+
   return (
     <>
       <GlobalStyle />
@@ -48,7 +50,7 @@ function App() {
           produtos={produtos}
           favoritos={favoritos}
           favoritar={favoritar}
-          adicionarAoCarrinho={adicionarAoCarrinho}
+          adicionarAoCarrinho={adicionarProdutoNoCarrinho}
         />
       </div>
     </>
