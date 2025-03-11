@@ -16,12 +16,10 @@ export type Produto = {
 }
 
 function App() {
-  // Buscando produtos com RTK Query
   const { data: produtos = [], isLoading, isError } = useGetProdutosQuery()
 
   const [favoritos, setFavoritos] = useState<Produto[]>([])
 
-  // Acessando o carrinho no Redux
   const carrinho = useSelector((state: RootState) => state.carrinho.itens)
   const dispatch = useDispatch()
 
