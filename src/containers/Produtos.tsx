@@ -1,6 +1,6 @@
+// importa tudo como
 import type { Produto as ProdutoType } from '../App'
 import Produto from '../components/Produto'
-
 import * as S from './styles'
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
   adicionarAoCarrinho: (produto: ProdutoType) => void
   favoritar: (produto: ProdutoType) => void
 }
-
+// verificar nosso produto nos favoritos
 const ProdutosComponent = ({
   produtos,
   favoritos,
@@ -22,7 +22,7 @@ const ProdutosComponent = ({
 
     return IdsDosFavoritos.includes(produtoId)
   }
-
+  // renderização
   return (
     <>
       <S.Produtos>

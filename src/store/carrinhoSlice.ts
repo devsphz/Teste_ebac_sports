@@ -1,10 +1,11 @@
+// redux toolkit
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import type { Produto } from '../App'
 
 type CartState = {
   itens: Produto[]
 }
-
+// início
 const initialState: CartState = {
   itens: []
 }
@@ -22,6 +23,7 @@ const carrinhoSlice = createSlice({
       } else {
         alert('Item já adicionado')
       }
+      // alerta o cliente
     },
     removerDoCarrinho: (state, action: PayloadAction<number>) => {
       state.itens = state.itens.filter((p) => p.id !== action.payload)

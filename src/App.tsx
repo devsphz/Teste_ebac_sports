@@ -1,6 +1,8 @@
+// acessar o estado global :)
 import { useSelector, useDispatch } from 'react-redux'
 import type { RootState } from './store/store'
 import { adicionarAoCarrinho } from './store/carrinhoSlice'
+// produtos da api
 import { useGetProdutosQuery } from './store/apiSlice'
 
 import Header from './components/Header'
@@ -15,6 +17,7 @@ export type Produto = {
   imagem: string
 }
 
+// buscar os produtos
 function App() {
   const { data: produtos = [], isLoading, isError } = useGetProdutosQuery()
 
@@ -26,7 +29,9 @@ function App() {
   function adicionarProdutoNoCarrinho(produto: Produto) {
     dispatch(adicionarAoCarrinho(produto))
   }
+  // fim
 
+  // adicionar e remover o produto da Ebac Sports
   function favoritar(produto: Produto) {
     if (favoritos.find((p) => p.id === produto.id)) {
       const favoritosSemProduto = favoritos.filter((p) => p.id !== produto.id)
@@ -38,7 +43,8 @@ function App() {
 
   if (isLoading) return <p>Carregando produtos...</p>
   if (isError) return <p>Erro ao carregar os produtos.</p>
-
+  // fim
+  // renderização
   return (
     <>
       <GlobalStyle />
@@ -54,5 +60,5 @@ function App() {
     </>
   )
 }
-
+// fim
 export default App
