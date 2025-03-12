@@ -9,7 +9,7 @@ const initialState: CartState = {
   itens: []
 }
 
-const cartSlice = createSlice({
+const carrinhoSlice = createSlice({
   name: 'carrinho',
   initialState,
   reducers: {
@@ -29,5 +29,5 @@ const cartSlice = createSlice({
   }
 })
 
-export const { adicionarAoCarrinho, removerDoCarrinho } = cartSlice.actions
-export default cartSlice.reducer
+export const { adicionarAoCarrinho, removerDoCarrinho } = carrinhoSlice.actions
+export default carrinhoSlice.reducer

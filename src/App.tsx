@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import type { RootState } from './store/store'
-import { adicionarAoCarrinho } from './store/cartSlice'
+import { adicionarAoCarrinho } from './store/carrinhoSlice'
 import { useGetProdutosQuery } from './store/apiSlice'
 
 import Header from './components/Header'
